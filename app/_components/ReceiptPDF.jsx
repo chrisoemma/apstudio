@@ -5,90 +5,90 @@ import { Page, Text, View, Document, StyleSheet, Image } from "@react-pdf/render
 // Define styles for the PDF
 const styles = StyleSheet.create({
   page: {
-    padding: 20,
+    padding: 30,
     fontFamily: "Helvetica",
   },
-  header: {
-    fontSize: 12,
-    marginBottom: 10,
-    textAlign: "center",
-  },
   logo: {
-    width: 100, // Adjust the width of the logo
-    height: 80, // Adjust the height of the logo
-    marginBottom: 10,
-    alignSelf: "center", // Center the logo
+    width: 100,
+    marginBottom: 20,
   },
-  section: {
-    marginBottom: 10,
+  header: {
+    marginBottom: 20,
+    borderBottom: "1 solid #eee",
+    paddingBottom: 10,
   },
   title: {
-    fontSize: 13,
+    fontSize: 20,
     fontWeight: "bold",
-    marginBottom: 10,
+    marginBottom: 20,
     textAlign: "center",
-  },
-  label: {
-    fontSize: 10,
-    fontWeight: "bold",
-    marginBottom: 5,
-  },
-  value: {
-    fontSize: 10,
-    marginBottom: 10,
-  },
-  table: {
-    display: "flex",
-    width: "100%",
-    marginBottom: 10,
-  },
-  tableRow: {
-    flexDirection: "row",
-    fontSize: 12,
-    borderBottomWidth: 1,
-    borderBottomColor: "#000",
-    borderBottomStyle: "solid",
-    alignItems: "center",
-    paddingVertical: 5,
-  },
-  tableHeader: {
-    fontSize: 12,
-    flexDirection: "row",
-    borderBottomWidth: 1,
-    borderBottomColor: "#000",
-    borderBottomStyle: "solid",
-    alignItems: "center",
-    paddingVertical: 5,
-    fontWeight: "bold",
-  },
-  tableCol: {
-    width: "33%",
-    fontSize: 12,
-  },
-  footer: {
-    fontSize: 10,
-    textAlign: "center",
-    marginTop: 20,
+    color: "#2563eb",
   },
   addressContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginBottom: 10,
+    marginBottom: 30,
   },
   addressSection: {
-    width: "48%", // Adjust width to fit side by side
+    width: "48%",
+  },
+  label: {
+    fontSize: 10,
+    color: "#666",
+    marginBottom: 5,
+  },
+  value: {
+    fontSize: 12,
+    marginBottom: 3,
+  },
+  table: {
+    marginTop: 20,
+  },
+  tableHeader: {
+    flexDirection: "row",
+    borderBottomWidth: 1,
+    borderBottomColor: "#eee",
+    paddingBottom: 5,
+    marginBottom: 10,
+    backgroundColor: "#f8fafc",
+    padding: 8,
+  },
+  tableRow: {
+    flexDirection: "row",
+    paddingVertical: 8,
+    borderBottomWidth: 1,
+    borderBottomColor: "#eee",
+  },
+  tableCol: {
+    flex: 1,
+    fontSize: 12,
   },
   paymentTotal: {
+    marginTop: 30,
     flexDirection: "row",
-    justifyContent: "flex-end", // Align to the right
-    marginBottom: 10,
+    justifyContent: "flex-end",
+    paddingTop: 10,
+    borderTopWidth: 1,
+    borderTopColor: "#eee",
+  },
+  footer: {
+    position: "absolute",
+    bottom: 30,
+    left: 30,
+    right: 30,
+    textAlign: "center",
+    color: "#666",
+    fontSize: 10,
+    borderTopWidth: 1,
+    borderTopColor: "#eee",
+    paddingTop: 10,
   },
 });
 
 // Function to format the date as YYYY/MM/DD HH:mm
 const formatDate = (date) => {
   const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, "0"); // Months are zero-based
+  const month = String(date.getMonth() + 1).padStart(2, "0");
   const day = String(date.getDate()).padStart(2, "0");
   const hours = String(date.getHours()).padStart(2, "0");
   const minutes = String(date.getMinutes()).padStart(2, "0");
@@ -97,8 +97,16 @@ const formatDate = (date) => {
 };
 
 // PDF Receipt Component
-const ReceiptPDF = ({ bookingId, packageName, amount, date }) => {
-  const formattedDate = formatDate(new Date(date)); // Format the date
+const ReceiptPDF = ({ 
+  transactionId, 
+  packageName, 
+  amount, 
+  date,
+  customerName,
+  customerEmail,
+  customerPhone
+}) => {
+  const formattedDate = formatDate(new Date(date));
 
   return (
     <Document>
@@ -106,37 +114,35 @@ const ReceiptPDF = ({ bookingId, packageName, amount, date }) => {
         {/* Logo */}
         <Image
           style={styles.logo}
-          src="/logo.png" // Replace with the path to your logo
+          src="/logo.png"
         />
 
         {/* Header */}
         <View style={styles.header}>
-          <Text>Payment Date: {formattedDate}</Text>
+          <Text style={styles.title}>Payment Receipt</Text>
+          <Text style={styles.value}>Transaction ID: {transactionId || 'Processing'}</Text>
+          <Text style={styles.value}>Date: {formattedDate}</Text>
         </View>
 
         {/* Addresses Side by Side */}
         <View style={styles.addressContainer}>
-          {/* Remit To */}
+          {/* Company Info */}
           <View style={styles.addressSection}>
-            <Text style={styles.label}>Remit to:</Text>
-            <Text style={styles.value}>Awesome photo studio</Text>
+            <Text style={styles.label}>From:</Text>
+            <Text style={styles.value}>Awesome Photo Studio</Text>
             <Text style={styles.value}>Magomeni</Text>
             <Text style={styles.value}>Dar es salaam</Text>
             <Text style={styles.value}>Tanzania</Text>
+            <Text style={styles.value}>+255 713 500 807</Text>
           </View>
 
-          {/* Invoice To */}
+          {/* Customer Info */}
           <View style={styles.addressSection}>
-            <Text style={styles.label}>Invoice To:</Text>
-            <Text style={styles.value}>Baraka Juma</Text>
-            <Text style={styles.value}>Mbezi Street</Text>
-            <Text style={styles.value}>Dar es Salaam, Dar es Salaam, 255 TZ</Text>
+            <Text style={styles.label}>Bill To:</Text>
+            <Text style={styles.value}>{customerName}</Text>
+            <Text style={styles.value}>{customerEmail}</Text>
+            <Text style={styles.value}>{customerPhone}</Text>
           </View>
-        </View>
-
-        {/* Receipt Title */}
-        <View style={styles.title}>
-          <Text>Receipt for Payment #{packageName}</Text>
         </View>
 
         {/* Table */}
@@ -150,23 +156,23 @@ const ReceiptPDF = ({ bookingId, packageName, amount, date }) => {
 
           {/* Table Row */}
           <View style={styles.tableRow}>
-            <Text style={styles.tableCol}>Payment for package {packageName}</Text>
+            <Text style={styles.tableCol}>{packageName}</Text>
             <Text style={styles.tableCol}>{formattedDate}</Text>
-            <Text style={styles.tableCol}>${amount}</Text>
+            <Text style={styles.tableCol}>{amount}</Text>
           </View>
         </View>
 
-        {/* Payment Total (Aligned to the Right) */}
+        {/* Payment Total */}
         <View style={styles.paymentTotal}>
-          <Text style={styles.label}>Payment Total (USD): </Text>
-          <Text style={styles.value}>${amount}</Text>
+          <Text style={[styles.label, { marginRight: 20 }]}>Total Amount Paid: </Text>
+          <Text style={[styles.value, { fontWeight: 'bold' }]}>{amount}</Text>
         </View>
 
         {/* Footer */}
         <View style={styles.footer}>
-          <Text>Awesome photo studio</Text>
+          <Text>Awesome Photo Studio</Text>
           <Text>Tanzania</Text>
-          <Text>+255 713 500 807 https://apstudiostz.com</Text>
+          <Text>+255 713 500 807 | https://apstudiostz.com</Text>
         </View>
       </Page>
     </Document>

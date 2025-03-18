@@ -100,13 +100,21 @@ const BookingContent = () => {
     setLoading(true);
     try {
       const numericAmount = parseFloat(amount.toString().replace(/[^0-9.]/g, ""));
+      
+      // Create success URL with package information
+      const successUrl = new URL(process.env.NEXT_PUBLIC_REDIRECT_URL);
+      successUrl.searchParams.append('package', packageData.title);
+      successUrl.searchParams.append('amount', amount);
+      successUrl.searchParams.append('customerName', `${formData.firstName} ${formData.surname}`);
+      successUrl.searchParams.append('customerEmail', formData.email);
+      successUrl.searchParams.append('customerPhone', formData.phone);
 
       const payload = {
         amount: numericAmount,
         currency: "USD",
         companyRef: "TEST123",
-        redirectURL: process.env.NEXT_PUBLIC_REDIRECT_URL,
-        backURL: process.env.NEXT_PUBLIC_BACK_URL,
+        redirectURL: successUrl.toString(),
+        backURL: `${process.env.NEXT_PUBLIC_BACK_URL}?paymentUrl=PAYMENT_URL`,  // DPO will replace PAYMENT_URL with actual URL
         serviceType: "54841",
         ...formData,
       };
@@ -127,6 +135,8 @@ const BookingContent = () => {
       const data = await res.json();
 
       if (data.paymentUrl) {
+        // Store payment URL in sessionStorage before redirecting
+        sessionStorage.setItem('lastPaymentUrl', data.paymentUrl);
         window.location.href = data.paymentUrl;
       } else {
         toast.error("Payment initialization failed. Please try again.", {

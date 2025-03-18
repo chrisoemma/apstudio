@@ -59,6 +59,13 @@ const Footer = () => {
             <li>
               <a href="/portifolio" className="text-gray-700 transition hover:opacity-75"> Portifolio </a>
             </li>
+            <li>
+              <a href="/contact" className="text-gray-700 transition hover:opacity-75"> Contact Us</a>
+
+            </li>
+            <li>
+              <a href="/refund-policy" className="text-gray-700 transition hover:opacity-75"> Refund Policy </a>
+            </li>
           </ul>
         </div>
       </div>
