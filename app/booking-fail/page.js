@@ -1,8 +1,8 @@
 "use client";
 import { useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 
-const BookingFail = () => {
+const BookingFailContent = () => {
   const searchParams = useSearchParams();
   const [paymentUrl, setPaymentUrl] = useState('');
 
@@ -58,6 +58,14 @@ const BookingFail = () => {
         </p>
       </div>
     </div>
+  );
+};
+
+const BookingFail = () => {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <BookingFailContent />
+    </Suspense>
   );
 };
 
