@@ -112,10 +112,10 @@ const BookingContent = () => {
       const payload = {
         amount: numericAmount,
         currency: "USD",
-        companyRef: "TEST123",
+        companyRef: `${process.env.COMPANY_REF}`,
         redirectURL: successUrl.toString(),
         backURL: `${process.env.NEXT_PUBLIC_BACK_URL}?paymentUrl=PAYMENT_URL`,  // DPO will replace PAYMENT_URL with actual URL
-        serviceType: "54841",
+        serviceType:`${process.env.SERVICE_TYPE}`,
         ...formData,
       };
 
