@@ -86,7 +86,8 @@ const styles = StyleSheet.create({
 });
 
 // Function to format the date as YYYY/MM/DD HH:mm
-const formatDate = (date) => {
+const formatDate = (dateString) => {
+  const date = new Date(dateString);
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, "0");
   const day = String(date.getDate()).padStart(2, "0");
@@ -106,7 +107,7 @@ const ReceiptPDF = ({
   customerEmail,
   customerPhone
 }) => {
-  const formattedDate = formatDate(new Date(date));
+  const formattedDate = formatDate(date);
 
   return (
     <Document>
