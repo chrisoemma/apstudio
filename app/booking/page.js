@@ -18,7 +18,7 @@ const packages = [
       "30-40 professionally edited pictures",
       "1-minute highlight video",
     ],
-    price: "$5",
+    price: "$0.5",
     images: ["/package1.JPG", "/package2.JPG", "/package3.JPG"],
   },
   {
@@ -31,7 +31,7 @@ const packages = [
       "Drone shots & photo book",
       "Full documentary-style video",
     ],
-    price: "$5",
+    price: "$0.5",
     images: ["/package1.JPG", "/package2.JPG", "/package3.JPG"],
   },
   {
@@ -45,7 +45,7 @@ const packages = [
       "Drone shots & cinematic documentary",
       "Photo book & elegant wooden frame",
     ],
-    price: "$5",
+    price: "$0.5",
     images: ["/package1.JPG", "/package2.JPG", "/package3.JPG"],
   },
 ];
@@ -112,10 +112,10 @@ const BookingContent = () => {
       const payload = {
         amount: numericAmount,
         currency: "USD",
-        companyRef: `${process.env.COMPANY_REF}`,
+        companyRef: "5700",
         redirectURL: successUrl.toString(),
         backURL: `${process.env.NEXT_PUBLIC_BACK_URL}?paymentUrl=PAYMENT_URL`,  // DPO will replace PAYMENT_URL with actual URL
-        serviceType:`${process.env.SERVICE_TYPE}`,
+        serviceType:"99302",
         ...formData,
       };
 
