@@ -18,7 +18,7 @@ const packages = [
       "30-40 professionally edited pictures",
       "1-minute highlight video",
     ],
-    price: "$0.5",
+    price: "$300",
     images: ["/package1.JPG", "/package2.JPG", "/package3.JPG"],
   },
   {
@@ -31,7 +31,7 @@ const packages = [
       "Drone shots & photo book",
       "Full documentary-style video",
     ],
-    price: "$0.5",
+    price: "$500",
     images: ["/package1.JPG", "/package2.JPG", "/package3.JPG"],
   },
   {
@@ -45,7 +45,7 @@ const packages = [
       "Drone shots & cinematic documentary",
       "Photo book & elegant wooden frame",
     ],
-    price: "$0.5",
+    price: "$1000",
     images: ["/package1.JPG", "/package2.JPG", "/package3.JPG"],
   },
 ];
