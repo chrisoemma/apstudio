@@ -25,7 +25,7 @@ const PackagesSection = ({ packagesRef }) => {
       <h2 className="text-3xl font-semibold mb-10 text-center text-green-700">
         Awesome studio packages
       </h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 px-10">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 md:gap-12 px-4 sm:px-6 md:px-10 max-w-6xl mx-auto">
         {[
           {
             id: "1",
@@ -37,6 +37,7 @@ const PackagesSection = ({ packagesRef }) => {
             ],
             price: "$300",
             image: "/package1.JPG",
+            isPremium: false,
           },
           {
             id: "2",
@@ -50,10 +51,11 @@ const PackagesSection = ({ packagesRef }) => {
             ],
             price: "$500",
             image: "/package2.JPG",
+            isPremium: false,
           },
           {
             id: "3",
-            title: "Island Romance Wedding Package",
+            title: "Island romance wedding Package",
             description: [
               "Full-day wedding photography",
               "Unlimited edited pictures",
@@ -64,6 +66,23 @@ const PackagesSection = ({ packagesRef }) => {
             ],
             price: "$1,000",
             image: "/package3.JPG",
+            isPremium: false,
+          },
+          {
+            id: "4",
+            title: "Island elegance package",
+            description: [
+              "Full-Day Photo Shoot with unlimited photos",
+              "DJ Services for the celebration",
+              "Elegant décor for beach ceremony",
+              "Professional makeup services",
+              "Pre-Wedding Photoshoot session",
+              "Documentary-Style Video",
+              "Customizable Add-Ons",
+            ],
+            price: "$5,800",
+            image: "/package1.JPG",
+            isPremium: true,
           },
         ].map((pkg, i) => (
           <motion.div
@@ -72,29 +91,36 @@ const PackagesSection = ({ packagesRef }) => {
             initial="hidden"
             animate={isInView ? "visible" : "hidden"}
             variants={packageVariants}
-            className="flex flex-col items-center p-6 border border-green-700 rounded-lg shadow-lg bg-gray-50"
+            className="flex flex-col items-center p-5 sm:p-6 border border-green-700 rounded-lg shadow-lg bg-gray-50 h-full"
           >
-            <img
-              src={pkg.image}
-              alt={pkg.title}
-              className="w-full h-60 rounded-lg object-cover mb-4"
-            />
-            <h3 className="text-2xl font-semibold text-green-700 mb-2">{pkg.title}</h3>
+            <div className="relative w-full">
+              <img
+                src={pkg.image}
+                alt={pkg.title}
+                className="w-full h-52 sm:h-64 rounded-lg object-cover mb-4"
+              />
+              {pkg.isPremium && (
+                <span className="absolute top-2 right-2 bg-gradient-to-r from-amber-500 to-yellow-300 text-white text-xs font-bold px-3 py-1 rounded-full">
+                  PREMIUM
+                </span>
+              )}
+            </div>
+            <h3 className="text-xl sm:text-2xl font-semibold text-green-700 mb-2 text-center">{pkg.title}</h3>
             
             {/* Make description take up space to push button down */}
-            <ul className="list-disc pl-5 text-lg text-gray-700 space-y-2 flex-grow">
+            <ul className="list-disc pl-5 text-sm sm:text-base text-gray-700 space-y-1 sm:space-y-2 flex-grow">
               {pkg.description.map((item, index) => (
                 <li key={index}>{item}</li>
               ))}
             </ul>
 
-            <div className="mt-4 text-xl font-bold text-green-700">{pkg.price}</div>
+            <div className="mt-4 text-lg sm:text-xl font-bold text-green-700">{pkg.price}</div>
 
             {/* Center the button */}
             <div className="mt-auto flex justify-center w-full">
               <Link href={`/booking?packageId=${pkg.id}`} className="w-full flex justify-center">
                 <button
-                  className="px-6  mt-3 py-2 border-2 text-lg font-medium transition w-full max-w-[200px] text-green-700 border-green-700 bg-transparent flex items-center justify-center"
+                  className="px-4 sm:px-6 mt-3 py-2 border-2 text-base sm:text-lg font-medium transition w-full max-w-[200px] text-green-700 border-green-700 bg-transparent flex items-center justify-center"
                   onMouseEnter={(e) => {
                     e.target.style.backgroundColor = "#006400";
                     e.target.style.color = "white";

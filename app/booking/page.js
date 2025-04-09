@@ -36,7 +36,7 @@ const packages = [
   },
   {
     id: "3",
-    title: "Island Romance Wedding Package",
+    title: "Island romance wedding Package",
     description: [
       "Full-day wedding photography",
       "Unlimited edited pictures",
@@ -46,6 +46,21 @@ const packages = [
       "Photo book & elegant wooden frame",
     ],
     price: "$1000",
+    images: ["/package1.JPG", "/package2.JPG", "/package3.JPG"],
+  },
+  {
+    id: "4",
+    title: "Island elegance package",
+    description: [
+      "Full-Day Photo Shoot: Capture every moment from start to finish, with unlimited photos",
+      "DJ Services: Professional DJ to keep the celebration lively throughout the event",
+      "Decorations: Elegant décor for the beach ceremony and dinner setting",
+      "Makeup Services: Professional makeup artist to ensure everyone looks their best",
+      "Pre-Wedding Photoshoot: A special session before the big day to capture intimate moments",
+      "Documentary-Style Video: A full-length video documenting the event, capturing candid moments and highlights",
+      "Customizable Add-Ons: Options for personalized touches like special lighting, additional décor elements",
+    ],
+    price: "$5800",
     images: ["/package1.JPG", "/package2.JPG", "/package3.JPG"],
   },
 ];
@@ -186,30 +201,35 @@ const BookingContent = () => {
   const { title, description, price, images } = packageData;
 
   return (
-    <div className="flex min-h-screen bg-gray-100 p-8 flex-col">
+    <div className="flex min-h-screen bg-gray-100 p-4 sm:p-6 md:p-8 flex-col">
       {/* Top Row: Two Cards Side by Side */}
       <ToastContainer />
-      <div className="flex gap-8 mb-8">
+      <div className="flex flex-col lg:flex-row gap-4 sm:gap-6 md:gap-8 mb-4 sm:mb-6 md:mb-8">
         {/* Left Card: Person Check-in Information */}
-        <div className="w-2/3 bg-white p-6 rounded-lg shadow-sm">
-          <h1 className="text-2xl font-bold mb-4">Book Your Package</h1>
-          <p className="text-lg mb-4">
+        <div className="w-full lg:w-2/3 bg-white p-4 sm:p-6 rounded-lg shadow-sm">
+          <h1 className="text-xl sm:text-2xl font-bold mb-4">Book Your Package</h1>
+          <p className="text-base sm:text-lg mb-4">
             You're about to book the <strong>{title}</strong> package. Secure your spot now!
+            {packageData.id === "4" && (
+              <span className="ml-2 inline-block bg-gradient-to-r from-amber-500 to-yellow-300 text-white text-xs font-bold px-3 py-1 rounded-full">
+                PREMIUM
+              </span>
+            )}
           </p>
           <div className="flex items-center mb-4">
             <span className="text-green-500 mr-2">✔</span>
             <span>This package includes:</span>
           </div>
-          <ul className="list-disc pl-5 text-lg text-gray-700 space-y-2 mb-4">
+          <ul className="list-disc pl-5 text-base sm:text-lg text-gray-700 space-y-1 sm:space-y-2 mb-4">
             {description.map((item, index) => (
               <li key={index}>{item}</li>
             ))}
           </ul>
-          <div className="text-xl font-bold text-green-700 mb-6">Price: {price}</div>
+          <div className="text-lg sm:text-xl font-bold text-green-700 mb-6">Price: {price}</div>
 
-          <h2 className="text-xl font-semibold mb-4">Your Details</h2>
+          <h2 className="text-lg sm:text-xl font-semibold mb-4">Your Details</h2>
           <form>
-            <div className="grid grid-cols-2 gap-4 mb-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
               <div>
                 <label className="block text-sm font-medium mb-1">First name *</label>
                 <input
@@ -270,10 +290,10 @@ const BookingContent = () => {
 
             <div className="mb-4">
               <label className="block text-sm font-medium mb-1">Mobile phone number *</label>
-              <div className="flex gap-2">
+              <div className="flex flex-col sm:flex-row gap-2">
                 {/* Country Code Dropdown */}
                 <select
-                  className="w-1/4 p-2 border rounded-lg bg-white"
+                  className="w-full sm:w-1/4 p-2 border rounded-lg bg-white"
                   defaultValue="TZA"
                 >
                   <option value="TZA">TZA +255</option>
@@ -287,7 +307,7 @@ const BookingContent = () => {
                 <input
                   type="tel"
                   name="phone"
-                  className="w-3/4 p-2 border rounded-lg"
+                  className="w-full sm:w-3/4 p-2 border rounded-lg"
                   placeholder="Enter your phone number"
                   value={formData.phone}
                   onChange={handleChange}
@@ -299,9 +319,16 @@ const BookingContent = () => {
         </div>
 
         {/* Right Card: Carousel and Additional Information */}
-        <div className="w-1/3 bg-white p-6 rounded-lg shadow-sm">
-          <h2 className="text-xl font-semibold mb-4">{title}</h2>
-          <p className="text-lg mb-4">Package Details</p>
+        <div className="w-full lg:w-1/3 bg-white p-4 sm:p-6 rounded-lg shadow-sm">
+          <h2 className="text-lg sm:text-xl font-semibold mb-4">
+            {title}
+            {packageData.id === "4" && (
+              <span className="ml-2 inline-block bg-gradient-to-r from-amber-500 to-yellow-300 text-white text-xs font-bold px-3 py-1 rounded-full">
+                PREMIUM
+              </span>
+            )}
+          </h2>
+          <p className="text-base sm:text-lg mb-4">Package Details</p>
 
           {/* Carousel Section */}
           <div className="relative mb-6">
@@ -325,7 +352,7 @@ const BookingContent = () => {
                   <img
                     src={image}
                     alt={`${title} ${index + 1}`}
-                    className="w-full h-64 object-cover rounded-lg"
+                    className="w-full h-48 sm:h-64 object-cover rounded-lg"
                   />
                 </SwiperSlide>
               ))}
@@ -335,7 +362,7 @@ const BookingContent = () => {
             <div className="absolute top-1/2 left-2 transform -translate-y-1/2 z-10 bg-white rounded-full p-2 shadow-sm cursor-pointer">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6 text-gray-700"
+                className="h-5 w-5 sm:h-6 sm:w-6 text-gray-700"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -346,7 +373,7 @@ const BookingContent = () => {
             <div className="absolute top-1/2 right-2 transform -translate-y-1/2 z-10 bg-white rounded-full p-2 shadow-sm cursor-pointer">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6 text-gray-700"
+                className="h-5 w-5 sm:h-6 sm:w-6 text-gray-700"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -373,15 +400,15 @@ const BookingContent = () => {
       </div>
 
       {/* Bottom Row: Two Cards Side by Side */}
-      <div className="flex gap-8">
+      <div className="flex flex-col lg:flex-row gap-4 sm:gap-6 md:gap-8">
         {/* Left Card: Payment Method */}
-        <div className="w-2/3">
+        <div className="w-full lg:w-2/3">
         
         </div>
 
         {/* Right Card: Price Details */}
-        <div className="w-1/3 bg-white p-6 rounded-lg shadow-sm">
-          <h2 className="text-xl font-semibold mb-4">Price details</h2>
+        <div className="w-full lg:w-1/3 bg-white p-4 sm:p-6 rounded-lg shadow-sm">
+          <h2 className="text-lg sm:text-xl font-semibold mb-4">Price details</h2>
           <div className="space-y-2">
             <div className="flex justify-between">
               <span>Package Price</span>
@@ -405,7 +432,7 @@ const BookingContent = () => {
 
           {/* Cancellation Policy Section */}
           <div className="mt-6">
-            <h2 className="text-xl font-semibold mb-4">Cancellation policy</h2>
+            <h2 className="text-lg sm:text-xl font-semibold mb-4">Cancellation policy</h2>
             <p className="text-sm text-gray-600">
               This rate is non-refundable. If you change or cancel your booking you will not get a refund or credit to use for a future stay.
             </p>
@@ -414,7 +441,7 @@ const BookingContent = () => {
           {/* Submit Button */}
           <button
             type="submit"
-            className="bg-green-700 text-white px-6 py-2 w-full mt-6"
+            className="bg-green-700 text-white px-4 sm:px-6 py-2 w-full mt-6"
             onClick={() => initiatePayment(packageData.id, packageData.price)}
             disabled={loading}
           >
